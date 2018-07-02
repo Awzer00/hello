@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<script type="text/javascript">
+$(function(){
+	$("#dg").datagrid({
+		url:'showAllPowerServletControl',
+		singleSelect:true
+	});
+});
+</script>
+
+<table id="dg" class="easyui-datagrid" title="权限信息"
+	style="width: 100%;" pagination="true"
+	iconCls="icon-save">
+
+	<thead>
+		<tr>
+			<th style="width: 10%;"  data-options="field:'id'">编号</th>
+			<th style="width: 10%;"  data-options="field:'roleName'">姓名</th>
+			<th style="width: 20%;"  data-options="field:'logId'">登录号</th>
+			<th style="width: 10%;"  data-options="field:'rlimit'">权限等级</th>
+
+		</tr>
+	</thead>
+</table>
+</html>

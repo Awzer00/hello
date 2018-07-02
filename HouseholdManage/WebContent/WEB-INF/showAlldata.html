@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<script type="text/javascript">
+
+	$(function(){
+		$("#dg").datagrid({
+			url:'showAlldataServletControl',
+			singleSelect:true
+		});
+	});
+
+</script>
+
+<table id="dg" class="easyui-datagrid" title="户口信息"
+	style="width: 100%; padding: 0px;" pagination="true"
+	iconCls="icon-save">
+
+	<thead>
+		<tr>
+			<th style="width: 5%; " data-options="field:'id'">编号</th>
+			<th style="width: 20%; " data-options="field:'idcard'">身份证</th>
+			<th style="width: 10%;"  data-options="field:'name'">姓名</th>
+			<th style="width: 5%;"  data-options="field:'sex'">性别</th>
+			<th style="width: 20%;"  data-options="field:'natives'">籍贯</th>
+			<th style="width: 5%;"  data-options="field:'nation'">民族</th>
+			<th style="width: 20%;"  data-options="field:'trpid'">暂住证</th>
+		</tr>
+	</thead>
+</table>
+</html>  

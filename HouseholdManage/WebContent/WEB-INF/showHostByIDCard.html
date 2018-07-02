@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+   <script type="text/javascript" src="js/operateHost.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/pagestyle.css">
+
+ <div id="main">
+ 	<h3>按身份证查询</h3>
+	<div>	
+		<lable>请输入身份证号码:</lable>
+		<input  type="text" name="IDCard" id="IDCard" onblur="checkIDCard()"/> <br/><br/>
+	</div> 
+	
+	<div id="handle"> 
+		<input type="button" value="查询" id="showHostByIDC"/>
+		<a id="cancel" href="rolePriorityServlet">取消</a>
+	</div> 
+</div> 	
+	<script type="text/javascript">
+		function checkIDCard(){
+			var IDCard=document.getElementById("IDCard").value;
+			if(IDCard==null || IDCard==""){
+				$("#IDCard").after("<span id='mess' style='color:red;'>不可为空</span>");
+				$("#IDCard").bind("focus",function(){
+					$("span[id='mess']").remove();
+				});
+			}else{
+				$.post("checkHadHostIDCard",{IDCard:IDCard},function(data){
+					if(data=="error"){
+						$("#IDCard").after("<span id='mess' style='color:red;'>此身份证不存在</span>");
+						$("#IDCard").bind("focus",function(){
+							$("span[id='mess']").remove();
+						});
+					}
+				});
+			}
+			
+		}
+	</script>
+</html>

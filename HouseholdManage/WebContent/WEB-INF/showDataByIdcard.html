@@ -1,0 +1,30 @@
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/operateData.js"></script>
+<link rel="stylesheet" type="text/css" href="css/pagestyle.css">
+
+ <div id="main">
+ 	<h3>身份证查询</h3>
+	<div>  
+		 <label>请输入身份证:</label>   
+		 <input  type="text" name="IDCard" id="IDCard" onblur="checkIDCard()"/><br/>
+	</div> 
+	<div id="handle">
+		 <input type="button" value="查询" id="showDataById"/>
+		 <a id="cancel" href="rolePriorityServlet">取消</a>
+	 </div> 
+ </div> 
+<script type="text/javascript">
+function checkIDCard(){
+	var IDCard=document.getElementById("IDCard").value;
+	if(IDCard=="" || IDCard==null){
+		$("input[id='IDCard']").after("&nbsp;<span id='i' style='color:red;'>身份证号码不能为空</span>");
+		$("input[id='IDCard']").bind("focus",function(){
+			$("span[id='i']").remove();
+		});
+	}
+}
+
+</script>

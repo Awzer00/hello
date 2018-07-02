@@ -1,0 +1,63 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/operateData.js"></script>
+<link rel="stylesheet" type="text/css" href="css/pagestyle.css">
+<script type="text/javascript">
+function checkID(){
+	var IDCard=document.getElementById("IDCard").value;
+	var reg = /^[0-9]{17}([0-9]|X)$/;
+	var flag = reg.test(IDCard);
+	if(IDCard==null||IDCard==""){
+		$("#IDCard").after("<span id='me' style='color:red;'>请输入身份证</span>");
+		$("#IDCard").bind("focus",function(){
+			$("span[id='me']").remove();
+		});
+	}else{
+		if(!flag){
+			$("#IDCard").after("<span id='me' style='color:red;'>身份证不合法</span>");
+			$("#IDCard").bind("focus",function(){
+				$("span[id='me']").remove();
+			});
+		}
+	}
+}
+</script>	
+ <div id="main">
+ 	<h3>增加新用户</h3>
+	<div>  
+	    <label>身份证号:</label>   
+	    <input  type="text" name="IDCard" id="IDCard" onblur="checkID()"/>   
+	</div> 
+	<div>   
+	    <label>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</label>   
+	    <input  type="text" name="name" id="name"/>   
+	</div> 
+	<div>   
+	    <label>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</label>   
+	    <!-- <select id='sex'>
+	    	<option value="男" selected="selected">男</option>
+	    	<option value="女">女</option>
+	    </select> -->
+	    
+	    <span>
+		   	<input type="radio" name="sex" id="sex1" value="男" checked="checked"/>男
+		    <input type="radio" name="sex" id="sex2" value="女">女   
+		</span>
+	</div> 
+	<div>   
+	    <label>籍&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;贯:</label>   
+	    <input  type="text" name="natives" id="natives"/>   
+	</div> 
+	<div>   
+	    <label>民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族:</label>   
+	    <input  type="text" name="nation" id="nation"/>   
+	</div> 
+	<div>   
+	    <label>暂住证号:</label>   
+	    <input  type="text" name="trpid" id="trpid" placeholder="若没有请填0"/>   
+	</div> 
+	<div id="handle">  
+	   <input type="button" value="提交" id='addData'/>
+	   <a id="cancel" href="rolePriorityServlet">取消</a>
+	</div> 
+</div>

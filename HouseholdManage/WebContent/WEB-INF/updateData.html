@@ -1,0 +1,114 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/operateData.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/pagestyle.css">
+
+ <div id="main">
+ 	<h3>修改户口信息</h3>
+	<div>  
+		<div>   
+		    <label>请输入身份证号:</label>   
+		    <input  type="text" name="IDCard" id="IDCard" onblur="checkIDCard()"/>   
+		</div><br/> 
+		
+		<div id="handle">  
+		    <input type="button" value="查找" id='seleData'/>
+		    <input type="button" value="提交" id='submitData'/>
+		    <a id="cancel" href="rolePriorityServlet">取消</a>
+		</div> 
+	</div> 
+<script>
+	function checkIDCard(){
+		var IDCard=document.getElementById("IDCard").value;
+		if(IDCard==null || IDCard==""){
+			$("#IDCard").after("<span id='mess' style='color:red;'>请输入身份证号码</span>");
+			$("#IDCard").bind("focus",function(){
+				$("span[id='mess']").remove();
+			});
+		}
+	}
+	
+	$("#seleData").click(function(){
+		var IDCard=$("#IDCard").val();
+		if(IDCard==null || IDCard==""){
+			alert("请输入身份证");
+		}else{
+			$.getJSON("updateDataServletControl?IDCard="+IDCard,function(data){
+				if(data==true){
+					alert("查无此人");
+				}else{
+					var d="<ul>";
+					d+="<br/>";
+					d+="<label>身份证号:</label>"+data.idcard;
+					d+="<br/>";
+					d+="<label>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</label><input type='text' id='name' value='"+data.name+"'/>";
+					d+="<br/>";
+					d+="<label>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</label><span><label><input type='radio' name='sex' id='sex1' value='男' checked='checked'/>男</label><label><input type='radio' name='sex' id='sex2' value='女'>女 </label></span>";
+					d+="<br/>";	
+					d+="<label>籍&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;贯:</label><input type='text' id='natives' value='"+data.natives+"'/>";
+					d+="<br/>";
+					d+="<label>民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族:</label>";
+					d+="<select name='nation' id='nation' value='"+data.nation+"'>";
+			    	d+="<option value='汉族' selected='selected' >汉族</option>";
+			    	d+="<option value='回族'>回族</option>";
+			    	d+="<option value='壮族'>壮族</option>";
+			    	d+="<option value='满族'>满族</option>";
+			    	d+="<option value='苗族'>苗族</option>";
+			    	d+="<option value='土家族'>土家族</option>";
+			    	d+="<option value='维吾尔族'>维吾尔族</option>";
+			    	d+="<option value='蒙古族'>蒙古族</option>";
+			    	d+="<option value='藏族'>藏族</option>";
+			    	d+="<option value='瑶族'>瑶族</option>";
+			    	d+="<option value='白族'>白族</option>";
+			    	d+="<option value='朝鲜族'>朝鲜族</option>";
+			    	d+="<option value='藏族'>藏族</option>";
+			    	d+="</select>";
+					/* "<input type='text'  id='nation' value='"+data.nation+"'/>"; */
+					d+="<br/>";
+					if(""+data.trpid=="null"){
+						d+="<label>暂住证号:</label><input type='text' id='trpid' value='0'/>";
+						d+="<br/>";
+					}else{
+						d+="<label>暂住证号:</label><input type='text' id='trpid' value='"+data.trpid+"'/>";
+						d+="<br/>";
+					}
+					d+="</ul>";
+					
+					$("#IDCard").after(d);
+					$("#seleData").click(function(){
+						$("#myul").remove();
+					});
+				}
+			});
+		}
+	});
+	
+	$("#submitData").click(function(){
+		var IDCard=$("#IDCard").val();
+		var name=$("#name").val();
+		var sex=$("#sex1:checked").val()=="男"?$("#sex1").val():$("#sex2").val();
+		var natives=$("#natives").val();
+		var nation=$("#nation").val();
+		var trpid=$("#trpid").val();
+		if(IDCard==null ||name==null || natives==null || nation==null || trpid==null || IDCard==""||name==""||natives==""||nation==""||trpid==""){
+			$("#cancel").after("<div id='mess' style='color:red'>请完善信息</div>");
+			$("input").bind("focus",function(){
+				$("div[id='mess']").remove();
+			});
+		}else{
+			$.get("updateDataServletControl2",{IDCard:IDCard,name:name,sex:sex,natives:natives,nation:nation,trpid:trpid},function(data2){
+				if(data2=="success"){
+					alert("修改成功");
+				}else{
+					$("#cancel").after("<div id='mess' style='color:red'>修改失败</div>");
+					$("input").bind("focus",function(){
+						$("div[id='mess']").remove();
+					});
+				}
+			});
+		}
+		
+	});
+	
+</script>

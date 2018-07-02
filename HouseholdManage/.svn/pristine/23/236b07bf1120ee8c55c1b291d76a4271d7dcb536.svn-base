@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+   <script type="text/javascript" src="js/jquery.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="css/pagestyle.css">
+	<div id="main">
+	 	<h3>挂失暂住证</h3>
+		<div> 
+			<label>输入身份证查找:</label>
+			<input type="text" id="searchId" /><br/>
+		</div>   
+		<div id="handle">	
+			<input type="button" value="查找" id='searchButton' onclick="searchT()"/>
+		    <a id="cancel" href="rolePriorityServlet">取消</a>
+ 		</div>  
+	</div>   
+    <script type="text/javascript">
+    	function searchT(){
+    		$("#searchButton").attr("disabled", true); 
+    		
+    		$("#searchId").focus(function(){
+    			$("#searchId").val("");
+    			$("#trpInfo").remove();
+    			$("#searchButton").attr("disabled", false); 
+    		});
+    		var idcard=document.getElementById("searchId").value;
+    		if(idcard==null || idcard==""){
+    			$("#searchId").after("<span id='mess' style='color:red;'>请输入身份证</span>");
+    			$("#searchId").bind("focus",function(){
+    				$("#mess").remove();
+    			});
+    		}else{
+    			var reg=/^[0-9]{17}([0-9]|X)$/;
+    			var flag=reg.test(idcard);
+    			if(flag){
+    				$.post("serachTrpServletControl",{idcard:idcard},function(d){
+    					if(d=="noIdcard"){
+    						alert("此身份证不存在");
+    					}else if(d=="noTrp"){
+    						alert("没有找到暂住证");
+    					}else{
+    						$.getJSON("searchTrpInfoControl?idcard="+idcard,function(data){
+    							var trp="<ul id='trpInfo'>";
+        						trp+="<li>";
+        						trp+=data.trpid;
+        						trp+="</li>";
+        						trp+="<li>";
+        						trp+=data.idcard;
+        						trp+="</li>";
+        						trp+="<li>";
+        						trp+=data.name;
+        						trp+="</li>";
+        						trp+="<li>";
+        						trp+=data.natives;
+        						trp+="</li>";
+        						trp+="<li>";
+        						trp+=data.address;
+        						trp+="</li>";
+        						trp+="<li>";
+        						trp+=data.beginDate;
+        						trp+="</li>";
+        						trp+="<li>";
+        						trp+=data.endDate;
+        						trp+="</li>";
+        						trp+="</ul>";
+        						
+        						$("#cancel").after(trp);
+        						
+    						});
+    					}
+    				});
+    			}else{
+    				$("#searchId").after("<span id='mess' style='color:red;'>请检查身份证</span>");
+        			$("#searchId").bind("focus",function(){
+        				$("#mess").remove();
+        			});
+    			}
+    		}
+    	}
+    </script>
+</html>

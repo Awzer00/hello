@@ -1,0 +1,120 @@
+
+   <meta charset="UTF-8">
+   <link rel="stylesheet" type="text/css" href="css/pagestyle.css">
+	<div id="main">
+	 	<h3>新增房客</h3>
+		<div> 	  
+			<form action="#">
+				房屋租赁证:<input type="text" id="licenceID" onblur="checkLID()"/> <br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;身份证:<input type="text" id="IDCard" onblur="checkID()"/><br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名&nbsp;&nbsp;&nbsp;:<input type="text" id="name"/><br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;电话&nbsp;&nbsp;&nbsp;:<input type="text" id="phone" onblur="checkPhone()"/><br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;暂住证:<input type="text" id="trpID" onblur="checkT()"/><br/> 
+				开&nbsp;始&nbsp;日&nbsp;期:<input id="be" class="easyui-datebox" data-options="formatter:myformatter,parser:myparser" /><br/>
+			    结&nbsp;束&nbsp;日&nbsp;期:<input id="en" class="easyui-datebox" data-options="formatter:myformatter,parser:myparser" /><br/>
+				<div id="handle">
+					<br/>
+					<input type="button" value="增加" id="" onclick="aa()"/>
+					<a id="cancel" href="rolePriorityServlet">取消</a>
+				</div>
+			</form>
+	</div>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/operateTenant.js"></script>
+	<script type="text/javascript">
+		function checkLID(){
+			var checkLID=document.getElementById("licenceID").value;
+			if(checkLID==null || checkLID==""){
+				$("#licenceID").after("<span id='m' style='color:red;'>请完善信息</span>");
+				$("#licenceID").bind("focus",function(){
+					$("span[id='m']").remove();
+				});
+			}else{
+				$.post("checkHadLicenceID",{licenceID:checkLID},function(data){
+					if(data=="empty"){
+						$("#licenceID").after("<span id='m' style='color:red;'>此ID不存在</span>");
+						$("#licenceID").bind("focus",function(){
+							$("span[id='m']").remove();
+						});
+					}
+				});
+			}
+		}
+		
+		function checkID(){
+			var IDCard=document.getElementById("IDCard").value;
+			var reg = /^[0-9]{17}([0-9]|X)$/;
+			var flag = reg.test(IDCard);
+			if(IDCard==null||IDCard==""){
+				$("#IDCard").after("<span id='me' style='color:red;'>请输入身份证</span>");
+				$("#IDCard").bind("focus",function(){
+					$("span[id='me']").remove();
+				});
+			}else{
+				if(!flag){
+					$("#IDCard").after("<span id='me' style='color:red;'>身份证不合法</span>");
+					$("#IDCard").bind("focus",function(){
+						$("span[id='me']").remove();
+					});
+				}
+			}
+		}
+		
+		function checkPhone(){
+			var phone=document.getElementById("phone").value;
+			var reg = /^1[0-9]{10}$/;
+			var flag = reg.test(phone);
+			if(phone==null||phone==""){
+				$("#phone").after("<span id='mes' style='color:red;'>请输入手机号</span>");
+				$("#phone").bind("focus",function(){
+					$("span[id='mes']").remove();
+				});
+			}else{
+				if(!flag){
+					$("#phone").after("<span id='mes' style='color:red;'>手机号不合法</span>");
+					$("#phone").bind("focus",function(){
+						$("span[id='mes']").remove();
+					});
+				}
+			}
+		}
+		
+		function checkT(){
+			var checkT=document.getElementById("trpID").value;
+			if(checkT==null || checkT==""){
+				$("#trpID").after("<span id='mess' style='color:red;'>请完善信息</span>");
+				$("#trpID").bind("focus",function(){
+					$("span[id='mess']").remove();
+				});
+			}else{
+				$.post("checkHadTrpID",{trpid:checkT},function(data){
+					if(data=="noID"){
+						$("#trpID").after("<span id='mess' style='color:red;'>此ID不存在</span>");
+						$("#trpID").bind("focus",function(){
+							$("span[id='mess']").remove();
+						});
+					}
+				});
+			}
+		}
+		
+	
+		function myformatter(date){
+			var y = date.getFullYear();
+			var m = date.getMonth()+1;
+			var d = date.getDate();
+			return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
+		}
+		function myparser(s){
+			if (!s) return new Date();
+			var ss = (s.split('-'));
+			var y = parseInt(ss[0],10);
+			var m = parseInt(ss[1],10);
+			var d = parseInt(ss[2],10);
+			if (!isNaN(y) && !isNaN(m) && !isNaN(d)){
+				return new Date(y,m-1,d);
+			} else {
+				return new Date();
+			}
+		}
+	</script>

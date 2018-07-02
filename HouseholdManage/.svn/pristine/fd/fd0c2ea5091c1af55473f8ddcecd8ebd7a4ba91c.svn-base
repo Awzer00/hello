@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/operateTrp.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/pagestyle.css">
+
+ <div id="main">
+ 	<h3>申请暂住证</h3>
+ 	<div>
+			身份证:<input type="text" id="idcard" onblur="checkID()"/><br/>
+			姓&nbsp;&nbsp;&nbsp;名:<input type="text" id="name"/><br/>
+			籍&nbsp;&nbsp;&nbsp;贯:<input type="text" id="natives"/><br/>
+			地&nbsp;&nbsp;&nbsp;址:<input type="text" id="address"/><br/><br/>
+		<div id="handle">
+			<input type="button" value="提交" id="apply"/>
+			<a href="rolePriorityServlet">取消</a>
+		</div>
+	</div>
+</div>	
+<script type="text/javascript">
+function checkID(){
+	var IDCard=document.getElementById("idcard").value;
+	var reg = /^[0-9]{17}([0-9]|X)$/;
+	var flag = reg.test(IDCard);
+	if(IDCard==null||IDCard==""){
+		$("#idcard").after("<span id='me' style='color:red;'>请输入身份证</span>");
+		$("#idcard").bind("focus",function(){
+			$("span[id='me']").remove();
+		});
+	}else{
+		if(!flag){
+			$("#idcard").after("<span id='me' style='color:red;'>身份证不合法</span>");
+			$("#idcard").bind("focus",function(){
+				$("span[id='me']").remove();
+			});
+		}
+	}
+}
+</script>		
+</body>
+</html>

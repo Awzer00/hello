@@ -1,0 +1,48 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/operate.js"></script>
+<link rel="stylesheet" type="text/css" href="css/pagestyle.css">
+
+ <div id="main">
+ 	<h3>修改密码</h3>	
+ 	<div> 	   
+		<label>登录号码:</label>   
+		<input type="text" name="logID" id="logID" onblur="checkLogid()"/> <br/>
+	</div>  
+	
+	<div> 
+		<label>修改密码:</label>   
+		<input  type="text" name="logPwd1" id="logPwd1"/><br/> 
+	</div>
+	
+	<div> 
+		<label>确认密码:</label>   
+		<input  type="text" name="logPwd2" id="logPwd2"/><br/> 
+	</div>
+	
+	<div id="handle"> 
+		<input type="button" value="确定" id="updatePwd"/>
+		<a id="cancel" href="rolePriorityServlet">关闭</a>
+	</div>
+</div>	  
+<script>
+function checkLogid(){
+	var logid=document.getElementById("logID").value;
+	if(logid=="" || logid==null){
+		$("input[id='logID']").after("&nbsp;<span id='addR' style='color:red;'>登录号不可为空</span>");
+		$("input[id='logID']").bind("focus",function(){
+			$("span[id='addR']").remove();
+		});
+	}else{
+		$.post("ckeckHadLodid",{logid:logid},function(data){
+			if(data=="error"){
+				$("input[id='logID']").after("&nbsp;<span id='addR' style='color:red;'>登录号不存在</span>");
+				$("input[id='logID']").bind("focus",function(){
+					$("span[id='addR']").remove();
+				});
+			}
+		});
+	}
+}
+
+</script>

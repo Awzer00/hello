@@ -1,0 +1,137 @@
+#page {
+	width: 1300px;
+	margin: 0px auto;
+/*  	border:1px solid red;  */
+}
+#top{
+	background-color: rgb(57,135,197);
+	padding: 30px 150px;
+}
+#main{
+/* 	border: 1px solid green; */
+	padding: 40px;
+	height: 310px;
+	margin-top: 20px;
+}
+#main>#img{
+	margin-left:80px;
+	width: 400px;
+	height:280px;
+	float:left;
+	/* border:1px solid red; */
+	background-image: url("../img/pic1.jpg");
+	background-size: 400px 280px;
+}
+#main>#leftmove,#main>#rightmove{
+	height: 20px;
+	width: 20px;
+	border-radius: 10px;
+	color: white;
+	font-size: 22px;
+	text-align: center;
+	line-height: 20px;
+	background-color: gray;
+}
+#main>#leftmove{
+	position: absolute;
+	left: 110px;
+	top: 335px;
+	cursor: pointer;
+}
+#main>#rightmove{
+	position: absolute;
+	left: 570px;
+	top: 335px;
+	cursor: pointer;
+}
+#main>#img.pic1{
+	background-image: url(../img/pic1.jpg);	
+}
+#main>#img.pic2{
+	background-image: url(../img/pic2.jpg);
+}
+#main>#img.pic3{
+	background-image: url(../img/pic3.jpg);
+}
+#main>#img.pic4{
+	background-image: url(../img/pic4.jpg);
+}
+#main>#img.pic5{
+	background-image: url(../img/pic5.jpg);
+}
+#main>form{
+	float: right;
+	background-color: rgb(235,234,240);
+	padding:40px 10px;
+	margin-right:150px;
+	width:400px;
+	border-radius: 5px;
+/* 	border: 1px solid gray; */
+}	
+select{
+	padding: 3px;
+	border-radius: 3px;
+}
+form div{
+		text-align: center;
+		padding: 5px;
+		font-family: cursive;
+		font-weight: bold;
+	}
+form>div>input{
+	padding: 6px;
+	width: 200px;
+	font-size: 14px;
+	letter-spacing: 1px;
+/* 	border: 1px solid gray; */
+}
+#divSelect{
+	font-size:14px;
+	font-weight: 200;
+}
+div>input[name="userId"]{
+	background: url("../img/man.png") no-repeat 4px 5px white;
+	padding-left: 25px;
+}
+div>input[name="userPwd"]{
+	background: url("../img/lock.png") no-repeat 4px 4px white;
+	padding-left: 25px;
+}
+input[name="randomCode"]{
+	width: 80px;
+}
+.code{
+	padding-top: 0px;
+}
+.code>img{
+	position: relative;
+	top: 10px;
+}
+.code>a{
+	font-size:12px;
+	color: red;
+	text-decoration: none;
+}
+input[type="submit"]{
+		width: 120px;
+		background-color: blue;
+		color: white;
+		font-family: cursive;
+		font-size: 18px;
+		font-weight:bold;
+		padding:10px ;
+		border-radius:5px;
+		border:0px;
+		margin-right: 30px;
+}
+#buttom{
+	padding:5px;
+	color: white;
+	font-size: 12px;
+	text-align: center;
+	background-color: rgb(57,135,197);
+}
+#buttom a{
+	color: white;
+	text-decoration: none;
+}

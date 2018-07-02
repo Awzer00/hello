@@ -1,0 +1,6 @@
+@charset "UTF-8";
+.titleimg{
+position:absolute;
+left:450px;
+height:110px;width:450px;
+}

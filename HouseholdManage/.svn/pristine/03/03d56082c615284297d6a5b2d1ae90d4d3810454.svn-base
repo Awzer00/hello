@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<script type="text/javascript">
+$(function(){
+	$("#dg").datagrid({
+		url:'showAllHostServletControl',
+		singleSelect:true
+	});
+});
+	
+</script>
+
+<table id="dg" class="easyui-datagrid" title="户主信息"
+	style="width: 100%; padding: 0px;" pagination="true"
+	iconCls="icon-save">
+
+	<thead>
+		<tr>
+			<th style="width: 10%;"  data-options="field:'licenceId'">租赁证</th>
+			<th style="width: 25%;"  data-options="field:'idcard'">身份证</th>
+			<th style="width: 10%;"  data-options="field:'name'">姓名</th>
+			<th style="width: 20%;"  data-options="field:'address'">地址</th>
+			<th style="width: 10%;"  data-options="field:'beginDate'">开始日期</th>
+			<th style="width: 10%;"  data-options="field:'endDate'">结束日期</th>
+		</tr>
+	</thead>
+</table>
+</html>  

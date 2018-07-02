@@ -1,0 +1,29 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/operateData.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/pagestyle.css">
+
+ <div id="main">
+ 	<h3>移除户口</h3>
+	<div>   
+	     <label >身份证号:</label>   
+	     <input  type="text" name="IDCard" id="IDCard" onblur="checkIDCard()"/>   
+	</div> 
+	
+	<div id="handle">  
+	   <input type="button" value="删除" id='removeData'/>
+	   <a id="cancel" href="rolePriorityServlet">取消</a>
+	</div> 
+</div> 
+<script>
+	function checkIDCard(){
+		var IDCard=document.getElementById("IDCard").value;
+		if(IDCard==null || IDCard==""){
+			$("#IDCard").after("<span id='mess' style='color:red;'>请输入身份证号码</span>");
+			$("#IDCard").bind("focus",function(){
+				$("span[id='mess']").remove();
+			});
+		}
+	}
+</script>

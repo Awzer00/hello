@@ -1,0 +1,65 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/operate.js"></script>
+<link rel="stylesheet" type="text/css" href="css/pagestyle.css">
+
+ <div id="main">
+ 	<h3>增加权限</h3>
+	<div>   
+	     <label >姓&nbsp;&nbsp;&nbsp;名:</label>   
+	     <input  type="text" name="name" id="name"/>   
+	</div>   
+	<div>   
+	     <label >登录号:</label>   
+	     <input  type="text" name="logID" id="logID" onblur="checkLogid()" />  
+	</div>  
+	<div>   
+	     <label >密&nbsp;&nbsp;&nbsp;码:</label>   
+	     <input  type="text" name="logPwd" id="logPwd"/>   
+	</div>  
+	<div>   
+	    <label >登录权限:</label>   
+	    <select  name="userType" id="userType">
+			<option value="管理员">管理员</option> 
+			<option value="市局用户">市局用户</option> 
+			<option value="分局用户">分局用户</option> 
+			<option value="地区派出所" selected="selected">地区派出所</option> 
+			<option value="协管员">协管员</option> 
+	    </select>
+	    <span id="mess"></span>
+	  </div>   
+	
+	  	
+	
+	<div id="handle">   
+	   <input type="button" value="申请" id='addRole'/>
+	   <a id="cancel" href="rolePriorityServlet">取消</a>
+	</div> 
+</div>
+<script>
+function checkLogid(){
+	var logid=document.getElementById("logID").value;
+	if(logid=="" || logid==null){
+		$("input[id='logID']").after("&nbsp;<span id='addR' style='color:red;'>注册号不可为空</span>");
+		$("input[id='logID']").bind("focus",function(){
+			$("span[id='addR']").remove();
+		});
+	}else{
+		$.post("ckeckHadLodid",{logid:logid},function(data){
+			if(data=="ok"){
+				$("input[id='logID']").after("&nbsp;<span id='addR' style='color:red'>注册名已存在</span>");
+				$("input[id='logID']").bind("focus",function(){
+					$("input[id='logID']").val("");
+					$("span[id='addR']").remove();
+				});
+			}else{
+				$("input[id='logID']").after("&nbsp;<span id='addR' style='color:green;'>注册名可用</span>");
+				$("input[id='logID']").bind("focus",function(){
+					$("span[id='addR']").remove();
+				});
+			}
+		});
+	}
+}
+
+</script>

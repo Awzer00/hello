@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript">
+	$(function(){
+		$("#dg").datagrid({
+			url:'outdateApplyTrpServletControl',
+			singleSelect:true
+		});
+	});
+	
+	function controlLink(value,rowData,rowIndex){ 
+	    return "<a href='#' onclick='controlRow("+rowData.id+");'>处理申请</a>";  
+	}
+	
+	function deleteLink(value,rowData,rowIndex){ 
+	    return "<a href='#' onclick='deleteRow("+rowData.id+");'>删除记录</a>";  
+	}
+	
+	function controlRow(id){
+		var row = $('#dg').datagrid('getSelected');
+		var idcard=row.idcard;
+		var name=row.name;
+		var natives=row.natives;
+		var address=row.address
+		if (row){
+			$.messager.confirm('确认',"确认通过"+name+"的申请吗?",function(r){
+				if(r){
+					$.post("agreeApplytrpServletContorl",{idcard:idcard,name:name,natives:natives,address:address},function(data){
+						if(data=="ok"){
+							$.messager.alert('我的消息','处理成功','info');
+							$('#dg').datagrid('reload');
+						}else{
+							$.messager.alert('我的消息','处理失败,请重新尝试','info');
+						}
+					});
+				}
+			});
+		}
+	}	
+	
+	function deleteRow(id){
+		var row=$("#dg").datagrid("getSelected");
+		if(row){
+			var idcard=row.idcard;
+			
+			$.messager.confirm('确认',"确认删除:"+row.name+"的记录吗?",function(r){    
+			    if (r){    
+			    	$.post("removeOutdateApplytrpServlctControl",{idcard,idcard},function(data){
+						if(data=="ok"){
+							$.messager.alert('我的消息','删除成功','info');
+							$('#dg').datagrid('reload');
+						}
+					});  
+			    }    
+			});  
+		}
+	}
+		
+</script>
+<table id="dg" class="easyui-datagrid" title="过期记录"
+	style="width: 100%; padding: 0px; align:center;" pagination="true"
+	iconCls="icon-save">
+	 
+	<thead>
+		
+		<tr>
+			<th style="width: 5%; " data-options="field:'id'">编号</th>
+			<th style="width: 13%; " data-options="field:'idcard'">身份证</th>
+			<th style="width: 7%;"  data-options="field:'name'">姓名</th>
+			<th style="width: 13%;"  data-options="field:'natives'">籍贯</th>
+			<th style="width: 13%;"  data-options="field:'address'">地址</th>
+			<th style="width: 13%;"  data-options="field:'date'">申请时间</th>
+			<th style="width: 13%;"  data-options="field:'endDate'">过期时间</th>
+			<th style="width: 7%;"  data-options="field:'status'">申请状态</th>
+			<th style="width: 8%;" data-options="field:'a',formatter:controlLink">处理申请</th>
+			<th style="width: 8%;" data-options="field:'b',formatter:deleteLink">删除记录</th>        	
+		</tr>
+	</thead>	
+</table> 
+      
+</html>
